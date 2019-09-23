@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from webapp.models import Product
 from .models import PRODUCT_CATEGORY_CHOICES
-from .forms import ProductForm
+from .forms import ProductForm, SearchForm
 
 
 def index_view(request):
@@ -16,7 +16,7 @@ def index_view(request):
     # https://docs.djangoproject.com/en/2.2/topics/db/queries/#field-lookups.
     # Также PyCharm при правильной настройке начинает подсказывать, что вы можете
     # записать в аргументах filter() для той или иной модели.
-    products = Product.objects.filter(amount__gt=0)
+    products = Product.objects.filter(amount__gt=0).order_by('name')
     return render(request, 'index.html', context={
         'products': products
     })
@@ -84,3 +84,14 @@ def product_delete(request, pk):
     elif request.method == 'POST':
         product.delete()
         return redirect('index')
+
+
+
+
+def search(request):
+    print(request.GET)
+    list=request.GET.get('search')
+    products= Product.objects.filter(name__contains=list)
+    return render(request, 'index.html', context={
+        'products': products
+    })
