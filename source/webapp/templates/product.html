@@ -6,4 +6,5 @@
     <p>Остаток: {{ product.amount }} шт.</p>
     <div class="pre">{{ product.description }}</div>
     <p class="btn btn-dark"><a href="{% url 'update' product.pk %}">Edit</a></p>
+    <p class="btn btn-danger"><a href="{% url 'delete' product.pk %}">Delete</a></p>
 {% endblock %}
