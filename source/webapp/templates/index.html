@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="mt-3">Бобро пожаловать в наш магазин!</h1>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-text card-link">
+                            <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a>
+                        </h2>
+                        <p class="card-text">{{ product.get_category_display }}</p>
+                        <p class="card-text text-right">{{ product.price }} сом</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
